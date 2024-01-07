@@ -12,6 +12,37 @@
 
 <body>
   <h1>Hello World!</h1>
+  <p>
+  const net = require('net');
+
+// Thông tin kết nối đến server
+const serverAddress = '127.0.0.1'; // Địa chỉ IP của server
+const serverPort = 3000; // Cổng của server
+
+// Tạo một đối tượng socket
+const client = new net.Socket();
+
+// Kết nối đến server
+client.connect(serverPort, serverAddress, () => {
+  console.log('Connected to server');
+
+  // Gửi dữ liệu đến server khi kết nối thành công
+  client.write('Hello, server! Love, Client.');
+});
+
+// Lắng nghe sự kiện nhận dữ liệu từ server
+client.on('data', (data) => {
+  console.log('Received: ' + data);
+
+  // Đóng kết nối sau khi nhận dữ liệu
+  client.destroy();
+});
+
+// Lắng nghe sự kiện đóng kết nối
+client.on('close', () => {
+  console.log('Connection closed');
+});
+</p>
 </body>
 <script src="js/main.js"></script>
 </html>
